@@ -1,0 +1,36 @@
+struktur folder :
+📂templates
+    header.php
+    footer.php
+📂produk
+    index.php (get all, hapus, cari+filter)
+    create.php
+    edit.php
+    detail.php
+koneksi.php
+index.php
+
+proses:
+tabel produk : (crud + filter), upload file, validasi form
+login
+logout
+
+rest api:
+tabel produk (crud + filter)
+
+DB php_beginner
+products: id (PK), name, price, weigth, description, thumbnail, category (FK), discount, stock
+product_categories: id (PK), name, description, thumbnail
+product_options: id, name, description, productID (FK)
+orders:
+order_details:
+customers:
+
+*
+clean code
+better url
+terdokumentasi
+
+https://github.com/sekolahprogram/crud-pdo-php/tree/master
+https://github.com/sekolahprogram/crud-mysqli-oop-php 
+
