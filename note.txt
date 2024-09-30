@@ -11,15 +11,15 @@ koneksi.php
 index.php
 
 proses:
-tabel produk : (crud + filter), upload file, validasi form
+tabel produk : (crud cari+filter), upload file, validasi form
 login
 logout
 
 rest api:
-tabel produk (crud + filter)
+tabel produk (crud cari+filter)
 
 DB php_beginner
-products: id (PK), name, price, weigth, description, thumbnail, category (FK), discount, stock
+products: id (PK), name, price, weight, description, thumbnail, discount, stock, category (FK)
 product_categories: id (PK), name, description, thumbnail
 product_options: id, name, description, productID (FK)
 orders:

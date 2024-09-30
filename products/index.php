@@ -2,7 +2,7 @@
 require_once '../templates/header.php';
 ?>
 
-<a href="/fullstack-php-beginner/products">
+<a href="/fullstack-php-beginner/products/create.php">
     <button type="button">+Product</button>
 </a>
 
@@ -23,7 +23,7 @@ require_once '../templates/header.php';
     <?php
     $products = $db->query("SELECT * FROM products");
     while ($product = $products->fetch(PDO::FETCH_OBJ)) {
-        echo " 
+        echo"  
             <tr>
                 <td>$product->id</td>
                 <td>$product->name</td>
@@ -33,7 +33,7 @@ require_once '../templates/header.php';
                 <td>$product->thumbnail</td>
                 <td>$product->discount</td>
                 <td>$product->stock</td>
-                <td>$product->category_fk</td>
+                <td>". ($product->category_fk=='' ? '-':$product->category_fk) ."</td>
                 <td>
                     <a href='./detail.php?id=$product->id'>Detail</a>   
                     <a href='./edit.php?id=$product->id'>Edit</a>
@@ -52,7 +52,7 @@ if (isset($_GET['delete'])) {
     if ($_GET['id']) {
         $result = $db->query("DELETE FROM products WHERE id = " . $_GET['id']);
         if ($result) {
-            header('Location:/fullstack-php-beginner/products/');
+           exit( header('Location:/fullstack-php-beginner/products/'));
         }
     }
 }
