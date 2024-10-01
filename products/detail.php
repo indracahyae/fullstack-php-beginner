@@ -9,10 +9,10 @@ echo "Detail Products <br>
     Name = $product->name, <br> 
     Price = $product->price, <br>  
     Weight = $product->weight, <br>
-    Description = $product->description, <br>
-    Thumbnail = $product->thumbnail, <br> 
-    Discount = $product->discount,  <br>
+    Discount = $product->discount, <br>
     Stock = $product->stock, <br>
-    Category = ". ($product->category_fk=='' ? '-':$product->category_fk);
+    Category = ". ($product->category_fk=='' ? '-':$product->category_fk) .", <br>
+    Description = $product->description, <br>
+    Thumbnail = $product->thumbnail, <br>";
 
 require_once '../templates/footer.php';

@@ -1,2 +1,2 @@
 <br><br>
-<a href="../">🧑‍💻 fullstack php beginner</a>
+<a href="/php-beginner">🧑‍💻 fullstack php beginner</a>

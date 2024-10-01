@@ -4,4 +4,4 @@ require_once __DIR__ . '/../connection.php';
 ?>
 
 <!-- menu -->
-<a href="./">Products</a> <br><br>
+<a href="/php-beginner/products">Products</a> <br><br>
