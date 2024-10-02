@@ -11,7 +11,7 @@ koneksi.php
 index.php
 
 proses:
-tabel produk : (crud cari+filter), upload file, validasi form
+♻️tabel produk : (crud cari+filter), upload file, validasi form
 login
 logout
 

@@ -33,13 +33,11 @@ if (isset($_POST['create'])) {
             ':description' => $_POST['description'],
         ];
         $query = $db->prepare("INSERT INTO products(name, price, weight, discount, stock, description) VALUES(:name, :price, :weight, :discount, :stock, :description)");
-        
         if ($query->execute($params)) {
             exit(header('Location:/php-beginner/products'));
         } else {
             echo "terjadi kesalahan pada server";
         }
-        
 }
 
 require_once '../templates/footer.php';
