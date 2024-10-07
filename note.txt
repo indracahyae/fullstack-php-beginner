@@ -5,7 +5,7 @@ struktur folder :
 📂produk
     index.php (get all, hapus, cari+filter)
     create.php
-    edit.php
+    edit.php 👈
     detail.php
 koneksi.php
 index.php

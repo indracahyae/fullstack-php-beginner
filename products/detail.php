@@ -11,8 +11,8 @@ echo "Detail Products <br>
     Weight = $product->weight, <br>
     Discount = $product->discount, <br>
     Stock = $product->stock, <br>
-    Category = ". ($product->category_fk=='' ? '-':$product->category_fk) .", <br>
     Description = $product->description, <br>
-    Thumbnail = $product->thumbnail, <br>";
+    Thumbnail = $product->thumbnail, <br>
+    Category = " . ($product->category_fk == '' ? '-' : $product->category_fk) . ", <br>";
 
 require_once '../templates/footer.php';
