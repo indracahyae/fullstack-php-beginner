@@ -3,15 +3,15 @@ struktur folder :
     header.php
     footer.php
 📂produk
-    index.php (get all, hapus, cari+filter)
-    create.php
-    edit.php 👈
-    detail.php
+    index.php (get all, hapus, 👉cari+filter, join, hapus file)
+    create.php (upload file, validasi)
+    edit.php (upload file, validasi)
+    detail.php (join)
 koneksi.php
 index.php
 
 proses:
-♻️tabel produk : (crud cari+filter), upload file, validasi form
+tabel produk : ♻️(crud cari+filter), upload file, join, validasi form (front, back)
 login
 logout
 
@@ -31,6 +31,12 @@ clean code
 better url
 terdokumentasi
 
+REF
+>>CRUD
 https://github.com/sekolahprogram/crud-pdo-php/tree/master
 https://github.com/sekolahprogram/crud-mysqli-oop-php 
-
+>>VALIDASI form
+https://sko.dev/referensi/php/validasi-dan-sanitasi-form
+https://mailtrap.io/blog/php-form-validation/ 
+https://www.geeksforgeeks.org/php-form-validation/#string-length-validation 
+https://www.simplilearn.com/tutorials/php-tutorial/php-form-validation#how_to_write_the_code_for_php_form_validation 

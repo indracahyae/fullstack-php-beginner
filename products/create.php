@@ -5,10 +5,10 @@ require_once '../templates/header.php';
 <h3>New Product</h3>
 <form action="" method="post">
     <input type="text" name="name" id="" placeholder="Name"> <br>
-    <input type="number" name="price" id="" placeholder="Price"> <br>
-    <input type="number" name="weight" id="" placeholder="Weight"> <br>
-    <input type="number" name="discount" id="" placeholder="Discount"> <br>
-    <input type="number" name="stock" id="" placeholder="Stock"> <br>
+    <input type="number" name="price" id="" placeholder="Price (Rp)"> <br>
+    <input type="number" name="weight" id="" placeholder="Weight (gr)"> <br>
+    <input type="number" name="discount" id="" placeholder="Discount (%)"> <br>
+    <input type="number" name="stock" id="" placeholder="Stock (pcs)"> <br>
     <textarea name="description" id="" rows="7" placeholder="Description"></textarea> <br>
     <span>Category</span>
      <select name="category_fk" id="">

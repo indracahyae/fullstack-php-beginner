@@ -7,12 +7,12 @@ echo "Detail Products <br>
     <br><br>
     ID = $product->id ,<br> 
     Name = $product->name, <br> 
-    Price = $product->price, <br>  
-    Weight = $product->weight, <br>
-    Discount = $product->discount, <br>
-    Stock = $product->stock, <br>
+    Price = Rp $product->price, <br>  
+    Weight = $product->weight gr, <br>
+    Discount = $product->discount %, <br>
+    Stock = $product->stock pcs, <br>
     Description = $product->description, <br>
-    Thumbnail = $product->thumbnail, <br>
-    Category = " . ($product->category_fk == '' ? '-' : $product->category_fk) . ", <br>";
+    Category = " . ($product->category_fk == '' ? '-' : $product->category_fk) . ", <br>
+    Thumbnail =  " . ($product->thumbnail == '' ? '-' : $product->thumbnail) . ", <br> ";
 
 require_once '../templates/footer.php';
