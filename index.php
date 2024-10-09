@@ -1,6 +1,6 @@
 
 <h2>
-    PHP Beginner
+    PHP Beginner by Kodehack
 </h2>
 <a href="products">Data Products</a>
 

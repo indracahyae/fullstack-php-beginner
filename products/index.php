@@ -9,13 +9,12 @@ require_once '../templates/header.php';
     <div>
         <label>Price</label>
         <select name="price">
-            <option value="ASC">Ascending</option>
-            <option value="DESC">Descending</option>
+            <option value="ASC" <?php if(isset($_POST["cari"]) && ($_POST["price"]=='ASC')) {echo "selected";} ?> >Ascending</option>
+            <option value="DESC" <?php if(isset($_POST["cari"]) && ($_POST["price"]=='DESC')) {echo "selected";} ?> >Descending</option>
         </select>
     </div>
-    
-    <input type="search" name="sk" id=""><br>
-    <button type="submit" name="cari">Cari</button>
+    <input type="search" name="sk" placeholder="Search Name ..." <?php if(isset($_POST["cari"])) {echo "value={$_POST["sk"]}";} ?> >
+    <button type="submit" name="cari">🔎</button>
 </form>
 <a href="/php-beginner/products/create.php">
     <button type="button">+Product</button>
@@ -82,7 +81,7 @@ if (isset($_GET['delete'])) {
     if ($_GET['id']) {
         $result = $db->query("DELETE FROM products WHERE id = " . $_GET['id']);
         if ($result) {
-           exit( header('Location:/php-beginner/products/'));
+           exit(header('Location:/php-beginner/products/',true,  301));
         }
     }
 }

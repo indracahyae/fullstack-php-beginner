@@ -34,7 +34,7 @@ if (isset($_POST['create'])) {
         ];
         $query = $db->prepare("INSERT INTO products(name, price, weight, discount, stock, description) VALUES(:name, :price, :weight, :discount, :stock, :description)");
         if ($query->execute($params)) {
-            exit(header('Location:/php-beginner/products'));
+            exit(header('Location:/php-beginner/products',true,  301));
         } else {
             echo "terjadi kesalahan pada server";
         }
