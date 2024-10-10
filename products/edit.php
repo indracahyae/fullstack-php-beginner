@@ -4,6 +4,9 @@ require_once '../templates/header.php';
 $products = $db->query("SELECT * FROM products WHERE id = " . $_GET['id']);
 // $query->execute();
 $product = $products->fetch(PDO::FETCH_OBJ);
+
+// GET DATA CATEGORIES
+$categories = $db->query("SELECT * FROM product_categories ");
 ?>
 
 <h3>Edit Product</h3>
@@ -17,9 +20,15 @@ $product = $products->fetch(PDO::FETCH_OBJ);
     <textarea name="description" id="" rows="7" placeholder="Description" ><?= $product->description; ?></textarea> <br>
     <span>Category</span>
     <select name="category_fk" id="">
-        <option value="1">xxx</option>
-        <option value="2">yyy</option>
-        <option value="3">zzz</option>
+    <?php 
+
+            while ($category = $categories->fetch(PDO::FETCH_OBJ)){
+                ($category->id == $product->category_fk) ? $selected_category="selected" : $selected_category = "" ;
+                echo "
+                    <option value='$category->id' $selected_category >$category->name</option>
+                ";
+            } 
+        ?>
     </select> <br>
     <span>Thumbnail</span>
     <input type="file" name="thumbnail" id="" placeholder="Thumbnail"><br><br>
@@ -37,10 +46,12 @@ if (isset($_POST['update'])) {
         ':discount' => $_POST['discount'],
         ':stock' => $_POST['stock'],
         ':description' => $_POST['description'],
+        ':category' => $_POST['category_fk'],
     ];
     $query = $db->prepare(
-        "INSERT INTO products(name, price, weight, discount, stock, description) 
-        VALUES(:name, :price, :weight, :discount, :stock, :description)");
+        "UPDATE products
+        SET name=:name, price=:price, weight=:weight, discount=:discount, stock=:stock, description=:description, category_fk=:category
+        WHERE id = " . $_GET['id']);
     if ($query->execute($params)) {
         exit(header('Location:/php-beginner/products', true,  301));
     } else {

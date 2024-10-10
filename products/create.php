@@ -1,5 +1,8 @@
 <?php
 require_once '../templates/header.php';
+
+// GET DATA CATEGORIES
+$categories = $db->query("SELECT * FROM product_categories ");
 ?>
 
 <h3>New Product</h3>
@@ -12,9 +15,13 @@ require_once '../templates/header.php';
     <textarea name="description" id="" rows="7" placeholder="Description"></textarea> <br>
     <span>Category</span>
      <select name="category_fk" id="">
-        <option value="1">xxx</option>
-        <option value="2">yyy</option>
-        <option value="3">zzz</option>
+        <?php 
+            while ($category = $categories->fetch(PDO::FETCH_OBJ)){
+                echo "
+                    <option value='$category->id'>$category->name</option>
+                ";
+            }
+        ?>
     </select> <br>
      <span>Thumbnail</span>
      <input type="file" name="thumbnail" id="" placeholder="Thumbnail" ><br><br>
@@ -31,8 +38,9 @@ if (isset($_POST['create'])) {
             ':discount' => $_POST['discount'],
             ':stock' => $_POST['stock'],
             ':description' => $_POST['description'],
+            ':category' => $_POST['category_fk'],
         ];
-        $query = $db->prepare("INSERT INTO products(name, price, weight, discount, stock, description) VALUES(:name, :price, :weight, :discount, :stock, :description)");
+        $query = $db->prepare("INSERT INTO products(name, price, weight, discount, stock, description, category_fk) VALUES(:name, :price, :weight, :discount, :stock, :description, :category)");
         if ($query->execute($params)) {
             exit(header('Location:/php-beginner/products',true,  301));
         } else {
