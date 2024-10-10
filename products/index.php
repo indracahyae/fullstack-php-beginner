@@ -6,6 +6,7 @@ require_once '../templates/header.php';
     <!-- .
         another filter here
     . -->
+    <span>Filter Data</span>
     <div>
         <label>Price</label>
         <select name="price">
@@ -24,9 +25,9 @@ require_once '../templates/header.php';
     // cek cari
     if (isset($_POST['cari']) ){
         // cek parameter pencarian dan filter
-        $products = $db->query("SELECT * FROM products WHERE name LIKE '%". $_POST['sk'] ."%' ORDER BY price ". $_POST['price']);
+        $products = $db->query("SELECT products.id, products.name as nama_produk, products.price, products.weight, products.discount, products.stock, products.description, product_categories.name as category, products.thumbnail FROM products INNER JOIN product_categories ON products.category_fk=product_categories.id WHERE products.name LIKE '%". $_POST['sk'] ."%' ORDER BY products.price ". $_POST['price']);
     } else {
-        $products = $db->query("SELECT * FROM products");
+        $products = $db->query("SELECT products.id, products.name as nama_produk, products.price, products.weight, products.discount, products.stock, products.description, product_categories.name as category, products.thumbnail FROM products INNER JOIN product_categories ON products.category_fk=product_categories.id");
     }
 
     if (isset($products)) {
@@ -50,13 +51,13 @@ require_once '../templates/header.php';
             echo"  
                 <tr>
                     <td>$product->id</td>
-                    <td>$product->name</td>
+                    <td>$product->nama_produk</td>
                     <td>$product->price</td>
                     <td>$product->weight</td>
                     <td>$product->discount</td>
                     <td>$product->stock</td>
                     <td>$product->description</td>
-                    <td>". ($product->category_fk=='' ? '-':$product->category_fk) ."</td>
+                    <td>". ($product->category=='' ? '-':$product->category) ."</td>
                     <td>". ($product->thumbnail=='' ? '-':$product->thumbnail) ."</td>
                     <td>
                         <a href='./detail.php?id=$product->id'>Detail</a>   
@@ -82,6 +83,8 @@ if (isset($_GET['delete'])) {
         $result = $db->query("DELETE FROM products WHERE id = " . $_GET['id']);
         if ($result) {
            exit(header('Location:/php-beginner/products/',true,  301));
+        }else{
+            echo "internal server error";
         }
     }
 }

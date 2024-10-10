@@ -3,15 +3,15 @@ struktur folder :
     header.php
     footer.php
 📂produk
-    index.php (get all, hapus, cari+sorting, 👉join, hapus file)
-    create.php (upload file, validasi)
-    edit.php (upload file, validasi)
-    detail.php (join)
+    index.php (get all, hapus, cari+sorting, join, hapus file)
+    create.php (upload file, validasi) ♻️ data categories
+    edit.php (upload file, validasi) ♻️ data categories
+    detail.php ♻️ join categories
 koneksi.php
 index.php
 
 proses:
-tabel produk : (crud cari+sorting), ♻️upload file, ♻️join, ♻️validasi form (front, back)
+tabel produk : (crud cari+sorting), ♻️upload file, ♻️👉join, ♻️validasi form (front, back)
 login ♻️
 logout ♻️
 
