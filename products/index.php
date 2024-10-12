@@ -82,7 +82,7 @@ if (isset($_GET['delete'])) {
     if ($_GET['id']) {
         $result = $db->query("DELETE FROM products WHERE id = " . $_GET['id']);
         if ($result) {
-           exit(header('Location:/php-beginner/products/',true,  301));
+           exit(header('Location:/php-beginner/products/'));
         }else{
             echo "internal server error";
         }

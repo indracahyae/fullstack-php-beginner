@@ -6,7 +6,9 @@ $categories = $db->query("SELECT * FROM product_categories ");
 ?>
 
 <h3>New Product</h3>
-<form action="" method="post">
+<form enctype="multipart/form-data" action="" method="post">
+
+
     <input type="text" name="name" id="" placeholder="Name"> <br>
     <input type="number" name="price" id="" placeholder="Price (Rp)"> <br>
     <input type="number" name="weight" id="" placeholder="Weight (gr)"> <br>
@@ -31,6 +33,8 @@ $categories = $db->query("SELECT * FROM product_categories ");
 
 <?php
 if (isset($_POST['create'])) {
+        // validasi form here
+
         $params = [
             ':name' => $_POST['name'],
             ':price' => $_POST['price'],
@@ -39,14 +43,27 @@ if (isset($_POST['create'])) {
             ':stock' => $_POST['stock'],
             ':description' => $_POST['description'],
             ':category' => $_POST['category_fk'],
+            ':thumbnail' => $_FILES['thumbnail']['name'],
         ];
-        $query = $db->prepare("INSERT INTO products(name, price, weight, discount, stock, description, category_fk) VALUES(:name, :price, :weight, :discount, :stock, :description, :category)");
+        $query = $db->prepare("INSERT INTO products(name, price, weight, discount, stock, description, category_fk, thumbnail) VALUES(:name, :price, :weight, :discount, :stock, :description, :category, :thumbnail)");
         if ($query->execute($params)) {
-            exit(header('Location:/php-beginner/products',true,  301));
+            // Validasi FILE before UPLOAD (isset, image, size,)
+            if (isset($_FILES['thumbnail'])) {
+                // print_r($_FILES);
+                // upload file to web directory
+                $uploadDir = $_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/';
+                $destinationFile = $uploadDir . basename($_FILES['thumbnail']['name']);
+                if (!move_uploaded_file($_FILES['thumbnail']['tmp_name'], $destinationFile)) {
+                    echo "terjadi kesalahan pada server saat upload file";
+                }
+            }        
+            exit(header('Location:/php-beginner/products'));
         } else {
             echo "terjadi kesalahan pada server";
         }
 }
+
+
 
 require_once '../templates/footer.php';
 ?>

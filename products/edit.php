@@ -53,7 +53,7 @@ if (isset($_POST['update'])) {
         SET name=:name, price=:price, weight=:weight, discount=:discount, stock=:stock, description=:description, category_fk=:category
         WHERE id = " . $_GET['id']);
     if ($query->execute($params)) {
-        exit(header('Location:/php-beginner/products', true,  301));
+        exit(header('Location:/php-beginner/products'));
     } else {
         echo "terjadi kesalahan pada server";
     }

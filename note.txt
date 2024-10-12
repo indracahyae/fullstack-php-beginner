@@ -11,8 +11,9 @@ koneksi.php
 index.php
 
 proses:
-tabel produk : ✅(crud cari+sorting), ♻️upload file, ✅join, ♻️validasi form (front, back)
+tabel produk : ✅(crud cari+sorting), 👉♻️upload file, ✅join, ♻️validasi form (front, back)
 ✅login + logout
+♻️ finishing all backend
 
 rest api 
     tabel produk (crud cari+filter) ♻️
