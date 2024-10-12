@@ -39,3 +39,7 @@ https://sko.dev/referensi/php/validasi-dan-sanitasi-form
 https://mailtrap.io/blog/php-form-validation/ 
 https://www.geeksforgeeks.org/php-form-validation/#string-length-validation 
 https://www.simplilearn.com/tutorials/php-tutorial/php-form-validation#how_to_write_the_code_for_php_form_validation 
+>> upload file
+https://www.w3schools.com/php/php_file_upload.asp
+https://www.petanikode.com/php-upload-file/
+https://www.php.net/manual/en/features.file-upload.post-method.php
