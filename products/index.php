@@ -58,11 +58,11 @@ require_once '../templates/header.php';
                     <td>$product->stock</td>
                     <td>$product->description</td>
                     <td>". ($product->category=='' ? '-':$product->category) ."</td>
-                    <td>". ($product->thumbnail=='' ? '-':$product->thumbnail) ."</td>
+                    <td>". ($product->thumbnail=='' ? '-': "<img src='/php-beginner/assets/product_thumbnail/$product->thumbnail' style='width:200px;height:auto;'>") ."</td>
                     <td>
                         <a href='./detail.php?id=$product->id'>Detail</a>   
                         <a href='./edit.php?id=$product->id'>Edit</a>
-                        <a onclick='return confirm(`Are you sure delete this data ?`)' href='./?delete&id=$product->id'>Delete</a>      
+                        <a onclick='return confirm(`Are you sure delete this data ?`)' href='./?delete&id=$product->id&fileName=$product->thumbnail'>Delete</a>      
                     </td>
                 </tr>
                 ";
@@ -82,7 +82,9 @@ if (isset($_GET['delete'])) {
     if ($_GET['id']) {
         $result = $db->query("DELETE FROM products WHERE id = " . $_GET['id']);
         if ($result) {
-           exit(header('Location:/php-beginner/products/'));
+            // delete file
+            unlink($_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/'. $_GET['fileName']);
+           die(header('Location:/php-beginner/products/'));
         }else{
             echo "internal server error";
         }

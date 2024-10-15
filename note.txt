@@ -14,10 +14,7 @@ proses:
 tabel produk : ✅(crud cari+sorting), ✅upload file, ✅join (), ♻️validasi form (front, back)
 ✅login + logout
 👉♻️ finishing all backend
-- tampilan gambar (index product)
 - edit update gambar
-- detail data gambar
-- delete data dan gambar
 
 rest api 
     tabel produk (crud cari+filter) ♻️

@@ -12,7 +12,13 @@ echo "Detail Products <br>
     Discount = $product->discount %, <br>
     Stock = $product->stock pcs, <br>
     Description = $product->description, <br>
-    Category = " . ($product->category == '' ? '-' : $product->category) . ", <br>
-    Thumbnail =  " . ($product->thumbnail == '' ? '-' : $product->thumbnail) . ", <br> ";
+    Category = " . ($product->category == '' ? '-' : $product->category) 
+    . ", <br> ";
+
+if ($product->thumbnail !== '') {
+    echo "<img src='/php-beginner/assets/product_thumbnail/$product->thumbnail' style='width:500px;height:auto;'>";
+} else {
+    echo '-';
+}
 
 require_once '../templates/footer.php';
