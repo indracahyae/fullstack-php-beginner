@@ -34,15 +34,24 @@ $categories = $db->query("SELECT * FROM product_categories ");
 <?php
 if (isset($_POST['create'])) {
         // validasi form here
+
         // cek file gambar, Validasi FILE before UPLOAD (isset, image, size,)
         if ($_FILES['thumbnail']['name'] !='') {
             $type = end(explode(".", $_FILES["thumbnail"]["name"]));
             $newName = round(microtime(true)). "-$_POST[name]" . '.' . $type;
+
+             // upload file to web directory
+             $uploadDir = $_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/'. $newName;
+             if (!move_uploaded_file($_FILES['thumbnail']['tmp_name'], $uploadDir)) {
+                 echo "terjadi kesalahan pada server saat upload file";
+                 goto footer;
+             }
         } else {
             echo 'Wajib pilih file gambar';
             goto footer;
         }
 
+        // SAVE TO DB
         $params = [
             ':name' => $_POST['name'],
             ':price' => $_POST['price'],
@@ -55,12 +64,6 @@ if (isset($_POST['create'])) {
         ];
         $query = $db->prepare("INSERT INTO products(name, price, weight, discount, stock, description, category_fk, thumbnail) VALUES(:name, :price, :weight, :discount, :stock, :description, :category, :thumbnail)");
         if ($query->execute($params)) {
-                // upload file to web directory
-                $uploadDir = $_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/'. $newName;
-                if (!move_uploaded_file($_FILES['thumbnail']['tmp_name'], $uploadDir)) {
-                    echo "terjadi kesalahan pada server saat upload file";
-                    goto footer;
-                }
             exit(header('Location:/php-beginner/products'));
         } else {
             echo "terjadi kesalahan pada server";

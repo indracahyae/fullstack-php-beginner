@@ -10,8 +10,10 @@ $categories = $db->query("SELECT * FROM product_categories ");
 ?>
 
 <h3>Edit Product</h3>
-<form action="" method="post">
-    <input type="hidden" name="id" value="<?= $product->id; ?>"> <br>
+<form action="" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="<?= $product->id; ?>"> 
+    <input type="hidden" name="thumbnail_" value="<?= $product->thumbnail; ?>">
+
     <input type="text" name="name" id="" placeholder="Name" value="<?= $product->name; ?>"> <br>
     <input type="number" name="price" id="" placeholder="Price (Rp)" value="<?= $product->price; ?>"> <br>
     <input type="number" name="weight" id="" placeholder="Weight (gr)" value="<?= $product->weight; ?>"> <br>
@@ -39,6 +41,34 @@ $categories = $db->query("SELECT * FROM product_categories ");
  <?php
 
 if (isset($_POST['update'])) {
+    $uploadDir = $_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/';
+
+    // ? ADA GAMBAR
+    if ($_FILES['thumbnail']['name'] !='') {
+        // delete file
+        unlink($_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/'. $_POST['thumbnail_']);
+
+        $type = end(explode(".", $_FILES["thumbnail"]["name"]));
+        $thumbnail = round(microtime(true)). "-$_POST[name]" . '.' . $type;
+         // upload file to web directory
+        //  $uploadDir = $_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/'. $thumbnail;
+         if (!move_uploaded_file($_FILES['thumbnail']['tmp_name'], $uploadDir .$thumbnail)) {
+             echo "terjadi kesalahan pada server saat upload file";
+         }
+    } else {
+        // ? TIDAK ADA GAMBAR
+        if ($_POST['thumbnail_'] !== $_POST['name']) {
+            // rename
+            $type = end(explode(".", $_POST['thumbnail_']));
+            $thumbnail = round(microtime(true)). "-$_POST[name]" . '.' . $type;
+            rename ($uploadDir.$_POST['thumbnail_'], $uploadDir.$thumbnail);
+        } else {
+            $thumbnail = $_POST['thumbnail_'];
+        }
+        
+    }
+
+    // SAVE TO DB
     $params = [
         ':name' => $_POST['name'],
         ':price' => $_POST['price'],
@@ -47,10 +77,11 @@ if (isset($_POST['update'])) {
         ':stock' => $_POST['stock'],
         ':description' => $_POST['description'],
         ':category' => $_POST['category_fk'],
+        ':thumbnail' => $thumbnail,
     ];
     $query = $db->prepare(
         "UPDATE products
-        SET name=:name, price=:price, weight=:weight, discount=:discount, stock=:stock, description=:description, category_fk=:category
+        SET name=:name, price=:price, weight=:weight, discount=:discount, stock=:stock, description=:description, category_fk=:category, thumbnail=:thumbnail
         WHERE id = " . $_GET['id']);
     if ($query->execute($params)) {
         exit(header('Location:/php-beginner/products'));
