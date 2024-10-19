@@ -1,7 +1,11 @@
 <?php
 require_once __DIR__ . '/../templates/header.php';
 
-$products = $db->query("SELECT products.id, products.name as nama_produk, products.price, products.weight, products.discount, products.stock, products.description, product_categories.name as category, products.thumbnail FROM products INNER JOIN product_categories ON products.category_fk=product_categories.id WHERE products.id=" . $_GET['id']);
+$products = $db->query(
+    "SELECT products.id, products.name as nama_produk, products.price, products.weight, products.discount, products.stock, products.description, product_categories.name as category, products.thumbnail 
+    FROM products 
+    INNER JOIN product_categories ON products.category_fk=product_categories.id 
+    WHERE products.id=" . $_GET['id']);
 $product = $products->fetch(PDO::FETCH_OBJ);
 echo "Detail Products <br>
     <br><br>

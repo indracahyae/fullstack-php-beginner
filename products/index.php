@@ -25,51 +25,55 @@ require_once '../templates/header.php';
     // cek cari
     if (isset($_POST['cari']) ){
         // cek parameter pencarian dan filter
-        $products = $db->query("SELECT products.id, products.name as nama_produk, products.price, products.weight, products.discount, products.stock, products.description, product_categories.name as category, products.thumbnail FROM products INNER JOIN product_categories ON products.category_fk=product_categories.id WHERE products.name LIKE '%". $_POST['sk'] ."%' ORDER BY products.price ". $_POST['price']);
+        $products = $db->query(
+            "SELECT products.id, products.name as nama_produk, products.price, products.weight, products.discount, products.stock, products.description, product_categories.name as category, products.thumbnail 
+            FROM products 
+            INNER JOIN product_categories ON products.category_fk=product_categories.id 
+            WHERE products.name LIKE '%". $_POST['sk'] ."%' ORDER BY products.price ". $_POST['price']);
     } else {
-        $products = $db->query("SELECT products.id, products.name as nama_produk, products.price, products.weight, products.discount, products.stock, products.description, product_categories.name as category, products.thumbnail FROM products INNER JOIN product_categories ON products.category_fk=product_categories.id");
+        $products = $db->query(
+            "SELECT products.id, products.name as nama_produk, products.price, products.weight, products.discount, products.stock, products.description, product_categories.name as category, products.thumbnail 
+            FROM products 
+            INNER JOIN product_categories ON products.category_fk=product_categories.id");
     }
 
-    if (isset($products)) {
-        echo"
-            <table>
+    echo"
+        <table>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Weight</th>
+            <th>Discount</th>
+            <th>stock</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Thumbnail</th>
+            <th>🎮</th>
+        </tr>
+    ";
+
+    while ($product = $products->fetch(PDO::FETCH_OBJ)) {
+        echo"  
             <tr>
-                <th>ID</th>
-                <th>Name</th>
-                <th>Price</th>
-                <th>Weight</th>
-                <th>Discount</th>
-                <th>stock</th>
-                <th>Description</th>
-                <th>Category</th>
-                <th>Thumbnail</th>
-                <th>🎮</th>
+                <td>$product->id</td>
+                <td>$product->nama_produk</td>
+                <td>$product->price</td>
+                <td>$product->weight</td>
+                <td>$product->discount</td>
+                <td>$product->stock</td>
+                <td>$product->description</td>
+                <td>". ($product->category=='' ? '-':$product->category) ."</td>
+                <td>". ($product->thumbnail=='' ? '-': "<img src='/php-beginner/assets/product_thumbnail/$product->thumbnail' style='width:200px;height:auto;'>") ."</td>
+                <td>
+                    <a href='./detail.php?id=$product->id'>Detail</a>   
+                    <a href='./edit.php?id=$product->id'>Edit</a>
+                    <a onclick='return confirm(`Are you sure delete this data ?`)' href='./?delete&id=$product->id&fileName=$product->thumbnail'>Delete</a>      
+                </td>
             </tr>
-        ";
-
-        while ($product = $products->fetch(PDO::FETCH_OBJ)) {
-            echo"  
-                <tr>
-                    <td>$product->id</td>
-                    <td>$product->nama_produk</td>
-                    <td>$product->price</td>
-                    <td>$product->weight</td>
-                    <td>$product->discount</td>
-                    <td>$product->stock</td>
-                    <td>$product->description</td>
-                    <td>". ($product->category=='' ? '-':$product->category) ."</td>
-                    <td>". ($product->thumbnail=='' ? '-': "<img src='/php-beginner/assets/product_thumbnail/$product->thumbnail' style='width:200px;height:auto;'>") ."</td>
-                    <td>
-                        <a href='./detail.php?id=$product->id'>Detail</a>   
-                        <a href='./edit.php?id=$product->id'>Edit</a>
-                        <a onclick='return confirm(`Are you sure delete this data ?`)' href='./?delete&id=$product->id&fileName=$product->thumbnail'>Delete</a>      
-                    </td>
-                </tr>
-                ";
+            ";
         };
-    } else {
-        echo "kendala pada server";
-    }
+    
     
     
 ?>
@@ -80,8 +84,7 @@ require_once '../templates/header.php';
 
 if (isset($_GET['delete'])) {
     if ($_GET['id']) {
-        $result = $db->query("DELETE FROM products WHERE id = " . $_GET['id']);
-        if ($result) {
+        if ($db->query("DELETE FROM products WHERE id = " . $_GET['id'])) {
             // delete file
             unlink($_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/'. $_GET['fileName']);
            die(header('Location:/php-beginner/products/'));

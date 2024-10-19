@@ -62,7 +62,9 @@ if (isset($_POST['create'])) {
             ':category' => $_POST['category_fk'],
             ':thumbnail' => $newName,
         ];
-        $query = $db->prepare("INSERT INTO products(name, price, weight, discount, stock, description, category_fk, thumbnail) VALUES(:name, :price, :weight, :discount, :stock, :description, :category, :thumbnail)");
+        $query = $db->prepare(
+            "INSERT INTO products(name, price, weight, discount, stock, description, category_fk, thumbnail) 
+            VALUES(:name, :price, :weight, :discount, :stock, :description, :category, :thumbnail)");
         if ($query->execute($params)) {
             exit(header('Location:/php-beginner/products'));
         } else {

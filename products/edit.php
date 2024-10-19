@@ -2,7 +2,6 @@
 require_once '../templates/header.php';
 
 $products = $db->query("SELECT * FROM products WHERE id = " . $_GET['id']);
-// $query->execute();
 $product = $products->fetch(PDO::FETCH_OBJ);
 
 // GET DATA CATEGORIES
@@ -24,20 +23,20 @@ $categories = $db->query("SELECT * FROM product_categories ");
     <select name="category_fk" id="">
     <?php 
 
-            while ($category = $categories->fetch(PDO::FETCH_OBJ)){
-                ($category->id == $product->category_fk) ? $selected_category="selected" : $selected_category = "" ;
-                echo "
-                    <option value='$category->id' $selected_category >$category->name</option>
-                ";
-            } 
-        ?>
+        while ($category = $categories->fetch(PDO::FETCH_OBJ)){
+            ($category->id == $product->category_fk) ? $selected_category="selected" : $selected_category = "" ;
+            echo "
+                <option value='$category->id' $selected_category >$category->name</option>
+            ";
+        } 
+    ?>
     </select> <br>
     <span>Thumbnail</span>
     <input type="file" name="thumbnail" id="" placeholder="Thumbnail"><br><br>
     <button type="submit" name="update">Update</button>
 </form>
 
-<!-- update here -->
+<!-- update DB -->
  <?php
 
 if (isset($_POST['update'])) {
@@ -57,7 +56,7 @@ if (isset($_POST['update'])) {
          }
     } else {
         // ? TIDAK ADA GAMBAR
-        if ($_POST['thumbnail_'] !== $_POST['name']) {
+        if ($_POST['thumbnail_'] !== $_POST['name']) { //UBAH NAMA
             // rename
             $type = end(explode(".", $_POST['thumbnail_']));
             $thumbnail = round(microtime(true)). "-$_POST[name]" . '.' . $type;

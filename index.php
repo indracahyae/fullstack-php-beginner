@@ -10,9 +10,8 @@
 
 
 <?php
-    // login
     session_start();
-
+    // login
     if (isset($_POST['login'])) {
         $_SESSION["login"] = true;
         $url = "php-beginner/products";
