@@ -1,5 +1,6 @@
 <?php
 require_once '../templates/header.php';
+require_once '../global.php';
 
 $products = $db->query("SELECT * FROM products WHERE id = " . $_GET['id']);
 $product = $products->fetch(PDO::FETCH_OBJ);
@@ -40,17 +41,16 @@ $categories = $db->query("SELECT * FROM product_categories ");
  <?php
 
 if (isset($_POST['update'])) {
-    $uploadDir = $_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/';
+    $uploadDir = "$_SERVER[DOCUMENT_ROOT]/$rootUrl/assets/product_thumbnail/";
 
     // ? ADA GAMBAR
     if ($_FILES['thumbnail']['name'] !='') {
         // delete file
-        unlink($_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/'. $_POST['thumbnail_']);
+        unlink("$_SERVER[DOCUMENT_ROOT]/$rootUrl/assets/product_thumbnail/$_POST[thumbnail_]");
 
         $type = end(explode(".", $_FILES["thumbnail"]["name"]));
         $thumbnail = round(microtime(true)). "-$_POST[name]" . '.' . $type;
          // upload file to web directory
-        //  $uploadDir = $_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/'. $thumbnail;
          if (!move_uploaded_file($_FILES['thumbnail']['tmp_name'], $uploadDir .$thumbnail)) {
              echo "terjadi kesalahan pada server saat upload file";
          }
@@ -83,7 +83,7 @@ if (isset($_POST['update'])) {
         SET name=:name, price=:price, weight=:weight, discount=:discount, stock=:stock, description=:description, category_fk=:category, thumbnail=:thumbnail
         WHERE id = " . $_GET['id']);
     if ($query->execute($params)) {
-        exit(header('Location:/php-beginner/products'));
+        exit(header("Location:/$rootUrl/products"));
     } else {
         echo "terjadi kesalahan pada server";
     }

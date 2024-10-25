@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../templates/header.php';
+require_once '../global.php';
 
 $products = $db->query(
     "SELECT products.id, products.name as nama_produk, products.price, products.weight, products.discount, products.stock, products.description, product_categories.name as category, products.thumbnail 
@@ -20,7 +21,7 @@ echo "Detail Products <br>
     . ", <br> ";
 
 if ($product->thumbnail !== '') {
-    echo "<img src='/php-beginner/assets/product_thumbnail/$product->thumbnail' style='width:500px;height:auto;'>";
+    echo "<img src='/$rootUrl/assets/product_thumbnail/$product->thumbnail' style='width:500px;height:auto;'>";
 } else {
     echo '-';
 }

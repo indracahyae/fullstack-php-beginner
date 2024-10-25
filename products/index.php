@@ -1,5 +1,6 @@
 <?php
 require_once '../templates/header.php';
+require_once '../global.php';
 ?>
 
 <form action="" method="post">
@@ -17,7 +18,7 @@ require_once '../templates/header.php';
     <input type="search" name="sk" placeholder="Search Name ..." <?php if(isset($_POST["cari"])) {echo "value={$_POST["sk"]}";} ?> >
     <button type="submit" name="cari">🔎</button>
 </form>
-<a href="/php-beginner/products/create.php">
+<a href="<?="/$rootUrl/products/create.php"?>">
     <button type="button">+Product</button>
 </a>
 
@@ -64,7 +65,7 @@ require_once '../templates/header.php';
                 <td>$product->stock</td>
                 <td>$product->description</td>
                 <td>". ($product->category=='' ? '-':$product->category) ."</td>
-                <td>". ($product->thumbnail=='' ? '-': "<img src='/php-beginner/assets/product_thumbnail/$product->thumbnail' style='width:200px;height:auto;'>") ."</td>
+                <td>". ($product->thumbnail=='' ? '-': "<img src='/$rootUrl/assets/product_thumbnail/$product->thumbnail' style='width:200px;height:auto;'>") ."</td>
                 <td>
                     <a href='./detail.php?id=$product->id'>Detail</a>   
                     <a href='./edit.php?id=$product->id'>Edit</a>
@@ -86,8 +87,8 @@ if (isset($_GET['delete'])) {
     if ($_GET['id']) {
         if ($db->query("DELETE FROM products WHERE id = " . $_GET['id'])) {
             // delete file
-            unlink($_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/'. $_GET['fileName']);
-           die(header('Location:/php-beginner/products/'));
+            unlink("$_SERVER[DOCUMENT_ROOT]/$rootUrl/assets/product_thumbnail/$_GET[fileName]");
+           die(header("Location:/$rootUrl/products/"));
         }else{
             echo "internal server error";
         }

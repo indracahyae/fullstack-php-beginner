@@ -1,5 +1,6 @@
 <?php
 require_once '../templates/header.php';
+require_once '../global.php';
 
 // GET DATA CATEGORIES
 $categories = $db->query("SELECT * FROM product_categories ");
@@ -41,7 +42,7 @@ if (isset($_POST['create'])) {
             $newName = round(microtime(true)). "-$_POST[name]" . '.' . $type;
 
              // upload file to web directory
-             $uploadDir = $_SERVER['DOCUMENT_ROOT'].'/php-beginner/assets/product_thumbnail/'. $newName;
+             $uploadDir = "$_SERVER[DOCUMENT_ROOT]/$rootUrl/assets/product_thumbnail/$newName";
              if (!move_uploaded_file($_FILES['thumbnail']['tmp_name'], $uploadDir)) {
                  echo "terjadi kesalahan pada server saat upload file";
                  goto footer;
@@ -66,7 +67,7 @@ if (isset($_POST['create'])) {
             "INSERT INTO products(name, price, weight, discount, stock, description, category_fk, thumbnail) 
             VALUES(:name, :price, :weight, :discount, :stock, :description, :category, :thumbnail)");
         if ($query->execute($params)) {
-            exit(header('Location:/php-beginner/products'));
+            exit(header("Location:/$rootUrl/products"));
         } else {
             echo "terjadi kesalahan pada server";
             goto footer;

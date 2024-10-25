@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../connection.php';
-// header('Content-type: text/plain');
+require_once '../global.php';
 
 session_start();
 if(!isset($_SESSION["login"])){
@@ -8,13 +8,12 @@ if(!isset($_SESSION["login"])){
 }
 
 if (!$_SESSION["login"]) {
-    $url = "php-beginner";
-    exit(header("Location:http://$_SERVER[HTTP_HOST]/$url"));
+    exit(header("Location:http://$_SERVER[HTTP_HOST]/$rootUrl"));
 }
 ?>
 
 <!-- menu -->
-<a href="/php-beginner/products">Products</a> <br>
+<a href="">Products</a> <br>
 <?php
 if($_SESSION["login"]){
     echo "
@@ -26,8 +25,7 @@ if($_SESSION["login"]){
     if (isset($_POST['logout'])) {
         // $_SESSION["login"] = false;
         session_unset();
-        $url = "php-beginner";
-        exit(header("Location:http://$_SERVER[HTTP_HOST]/$url"));
+        exit(header("Location:http://$_SERVER[HTTP_HOST]/$rootUrl"));
     }
 
 
