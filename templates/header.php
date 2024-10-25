@@ -3,7 +3,7 @@ require_once __DIR__ . '/../connection.php';
 require_once '../global.php';
 
 session_start();
-if(!isset($_SESSION["login"])){
+if (!isset($_SESSION["login"])) {
     $_SESSION["login"] = false;
 }
 
@@ -13,9 +13,9 @@ if (!$_SESSION["login"]) {
 ?>
 
 <!-- menu -->
-<a href="">Products</a> <br>
+<a href="<?= "http://$_SERVER[HTTP_HOST]/$rootUrl/products"; ?>">Products</a> <br>
 <?php
-if($_SESSION["login"]){
+if ($_SESSION["login"]) {
     echo "
         <form action='' method='post'>
             <button type='submit' name='logout'>LOGOUT</button>
@@ -27,7 +27,5 @@ if($_SESSION["login"]){
         session_unset();
         exit(header("Location:http://$_SERVER[HTTP_HOST]/$rootUrl"));
     }
-
-
 }
 ?>

@@ -1,3 +1,2 @@
 <?php
-    $rootUrl = 'fullstack-php-beginner';
-?>
+$rootUrl = 'fullstack-php-beginner';
