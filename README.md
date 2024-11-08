@@ -5,8 +5,7 @@ basic understanding PHP base with frontend (HTML/CSS/JS) and database (mySql).
 ## Features
 
     login, logout
-    crud operations, search, sorting, upload file
-    sql join
+    data products : crud operations, search, sorting, upload file, sql join
     ♻️ validasi
     ♻️ rest api
 
